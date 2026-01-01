@@ -1,0 +1,15 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="DecryptUseCase.should decrypt each depth-1 property" type="JavaScriptTestRunnerJest" nameIsGenerated="true">
+    <node-interpreter value="$USER_HOME$/.nvm/versions/node/v24.12.0/bin/node" />
+    <jest-package value="$PROJECT_DIR$/node_modules/jest" />
+    <working-dir value="$PROJECT_DIR$" />
+    <envs />
+    <scope-kind value="TEST" />
+    <test-file value="$PROJECT_DIR$/src/core/application/use-cases/decrypt.usecase.spec.ts" />
+    <test-names>
+      <test-name value="DecryptUseCase" />
+      <test-name value="should decrypt each depth-1 property" />
+    </test-names>
+    <method v="2" />
+  </configuration>
+</component>

@@ -13,8 +13,8 @@ describe('DecryptUseCase', () => {
             age: 'MzA=',
             contact: 'eyJlbWFpbCI6ImpvaG5AZXhhbXBsZS5jb20iLCJwaG9uZSI6IjEyMy00NTYtNzg5MCJ9'
         };
-        return uc.execute(input).then((result) => {
-            return expect(result).toEqual({
+        uc.execute(input).then((result) => {
+            expect(result).toEqual({
                 "name": "John Doe",
                 "age": 30,
                 "contact": {
@@ -34,8 +34,8 @@ describe('DecryptUseCase', () => {
             contact: 'eyJlbWFpbCI6ImpvaG5AZXhhbXBsZS5jb20iLCJwaG9uZSI6IjEyMy00NTYtNzg5MCJ9',
             firstname: 'bob'
         };
-        return uc.execute(input).then((result) => {
-            return expect(result).toEqual({
+        uc.execute(input).then((result) => {
+            expect(result).toEqual({
                 "name": "John Doe",
                 "age": 30,
                 "contact": {

@@ -1,5 +1,5 @@
 {
-  "name": "test-riot",
+  "name": "test_riot",
   "version": "1.0.0",
   "main": "main.js",
   "scripts": {
@@ -12,14 +12,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Garddian/test-riot.git"
+    "url": "git+https://github.com/Garddian/test_riot.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Garddian/test-riot/issues"
+    "url": "https://github.com/Garddian/test_riot/issues"
   },
-  "homepage": "https://github.com/Garddian/test-riot#readme",
+  "homepage": "https://github.com/Garddian/test_riot#readme",
   "description": "",
   "dependencies": {
     "@nestjs/common": "^11.1.11",

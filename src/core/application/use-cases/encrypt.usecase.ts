@@ -7,9 +7,6 @@ export class EncryptUseCase {
     ) {}
 
     async execute(data: JsonObject) {
-        if (typeof data !== 'object' || data === null || Array.isArray(data)) {
-            throw new DomainError('INVALID_PAYLOAD','Data must be a object or array');
-        }
         let data_encrypted : JsonObject = {};
         for (let key in data) {
             data_encrypted[key] = this.crypt.encrypt(data[key]);

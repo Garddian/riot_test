@@ -19,10 +19,7 @@ export class Base64Crypter implements CryptPort {
         } else {
             json = JSON.stringify(object);
         }
-        return Buffer.from(json, 'utf8').toString('base64');;
-    }
-    verify(token: string): boolean{
-        return true;
+        return Buffer.from(json, 'utf8').toString('base64');
     }
 
     isEncoded(token: string): boolean {

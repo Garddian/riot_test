@@ -9,6 +9,7 @@ import { DecryptUseCase } from "./core/application/use-cases/decrypt.usecase";
 import { SignUseCase } from "./core/application/use-cases/sign.usecase";
 import { Base64Crypter } from "./adapters/crypter/base64.crypter";
 import { CryptPort } from "./core/ports/crypt.port";
+import {VerifyUseCase} from "./core/application/use-cases/verify.usecase";
 
 
 @Module({
@@ -32,6 +33,11 @@ import { CryptPort } from "./core/ports/crypt.port";
         {
             provide: SignUseCase,
             useFactory: (crypt: CryptPort) => new SignUseCase(crypt),
+            inject: [Base64Crypter],
+        },
+        {
+            provide: VerifyUseCase,
+            useFactory: (crypt: CryptPort) => new VerifyUseCase(crypt),
             inject: [Base64Crypter],
         },
     ],

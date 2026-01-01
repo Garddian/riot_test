@@ -2,6 +2,7 @@ import {BadRequestException, Body, Controller, Get, HttpCode, Post} from '@nestj
 import {EncryptUseCase} from '../../core/application/use-cases/encrypt.usecase';
 import {DecryptUseCase} from "../../core/application/use-cases/decrypt.usecase";
 import {SignUseCase} from "../../core/application/use-cases/sign.usecase";
+import {VerifyUseCase} from "../../core/application/use-cases/verify.usecase";
 
 @Controller('json')
 export class JsonController {

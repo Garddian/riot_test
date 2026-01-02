@@ -1,5 +1,5 @@
 import { CryptPort } from '../../ports/crypt.port';
-import { DomainError } from "../../domain/DomainError";
+import {JsonObject} from "../../domain/TypeJsonObject";
 
 export class EncryptUseCase {
     constructor(

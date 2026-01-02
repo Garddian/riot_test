@@ -1,6 +1,6 @@
 import { EncryptUseCase } from './encrypt.usecase';
 import { Base64Crypter } from '../../../adapters/crypter/base64.crypter';
-import {SignUseCase} from "./sign.usecase";
+import {JsonObject} from "../../domain/TypeJsonObject";
 
 describe('EncryptUseCase', () => {
     const crypter = new Base64Crypter();

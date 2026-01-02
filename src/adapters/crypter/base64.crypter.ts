@@ -1,5 +1,6 @@
 import {CryptPort} from "../../core/ports/crypt.port";
 import { Injectable } from '@nestjs/common';
+import {StringEncoded} from "../../core/domain/TypeStringEncoded";
 
 @Injectable()
 export class Base64Crypter implements CryptPort {

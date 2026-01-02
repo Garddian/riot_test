@@ -1,6 +1,6 @@
 import { SignUseCase } from './sign.usecase';
-import { Base64Crypter } from '../../../adapters/crypter/base64.crypter';
 import {HmacCrypter} from "../../../adapters/crypter/hmac.crypter";
+import {JsonObject} from "../../domain/TypeJsonObject";
 
 describe('SignUseCase', () => {
     const crypter = new HmacCrypter();

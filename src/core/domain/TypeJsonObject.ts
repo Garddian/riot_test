@@ -1,1 +1,1 @@
-type JsonObject = Record<string, unknown>;
+export type JsonObject = Record<string, unknown>;

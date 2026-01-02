@@ -1,16 +1,14 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-
-
 import { JsonController } from './adapters/http/json.controller';
-
 import { EncryptUseCase } from './core/application/use-cases/encrypt.usecase';
 import { DecryptUseCase } from "./core/application/use-cases/decrypt.usecase";
 import { SignUseCase } from "./core/application/use-cases/sign.usecase";
 import { Base64Crypter } from "./adapters/crypter/base64.crypter";
 import { CryptPort } from "./core/ports/crypt.port";
-import {VerifyUseCase} from "./core/application/use-cases/verify.usecase";
-import {AuthModule} from "./adapters/http/auth/auth.module";
+import { VerifyUseCase } from "./core/application/use-cases/verify.usecase";
+import { AuthModule } from "./adapters/http/auth/auth.module";
+import { HmacCrypter } from "./adapters/crypter/hmac.crypter";
 
 
 @Module({
@@ -21,6 +19,7 @@ import {AuthModule} from "./adapters/http/auth/auth.module";
     controllers: [JsonController],
     providers: [
         Base64Crypter,
+        HmacCrypter,
         {
             provide: EncryptUseCase,
             useFactory: (crypt: CryptPort) => new EncryptUseCase(crypt),
@@ -34,12 +33,12 @@ import {AuthModule} from "./adapters/http/auth/auth.module";
         {
             provide: SignUseCase,
             useFactory: (crypt: CryptPort) => new SignUseCase(crypt),
-            inject: [Base64Crypter],
+            inject: [HmacCrypter],
         },
         {
             provide: VerifyUseCase,
             useFactory: (crypt: CryptPort) => new VerifyUseCase(crypt),
-            inject: [Base64Crypter],
+            inject: [HmacCrypter],
         },
     ],
 

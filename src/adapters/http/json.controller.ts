@@ -4,6 +4,8 @@ import {DecryptUseCase} from "../../core/application/use-cases/decrypt.usecase";
 import {SignUseCase} from "../../core/application/use-cases/sign.usecase";
 import {VerifyUseCase} from "../../core/application/use-cases/verify.usecase";
 import {JwtAuthGuard} from "./auth/jwt-auth.guard";
+import {VerifyDto} from "./dto/verify.dto";
+import { JsonObject } from '../../core/domain/TypeJsonObject';
 
 @UseGuards(JwtAuthGuard)
 @Controller('json')
@@ -32,8 +34,8 @@ export class JsonController {
 
     @Post('verify')
     @HttpCode(204)
-    async verifyAction(@Body() body: JsonObject) {
-        if(!this.verify.execute(body)){
+    async verifyAction(@Body() body: VerifyDto) {
+        if(!await this.verify.execute(body)){
             throw new BadRequestException({
                 code: 'INVALID_SIGNATURE',
                 message: 'Signature is invalid',

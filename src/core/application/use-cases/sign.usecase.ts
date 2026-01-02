@@ -1,5 +1,4 @@
 import { CryptPort } from '../../ports/crypt.port';
-import { DomainError } from "../../domain/DomainError";
 
 export class SignUseCase {
     constructor(
@@ -8,7 +7,7 @@ export class SignUseCase {
 
     async execute(data: JsonObject) {
         return {
-            "signature": this.crypt.sign(data)
+            "signature": this.crypt.encrypt(data)
         };
     }
 }

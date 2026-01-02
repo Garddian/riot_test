@@ -1,21 +1,24 @@
 import { VerifyUseCase } from './verify.usecase';
-import { Base64Crypter } from '../../../adapters/crypter/base64.crypter';
-import {DomainError} from "../../domain/DomainError";
+import { DomainError } from "../../domain/DomainError";
+import { HmacCrypter } from "../../../adapters/crypter/hmac.crypter";
+import { VerifyPayload } from "../../domain/TypeVerifyPayload";
 
 describe('VerifyUseCase', () => {
-    const crypter = new Base64Crypter();
+    const crypter = new HmacCrypter();
 
     it('should verify all the payload', () => {
         const uc = new VerifyUseCase(crypter);
 
-        const input: JsonObject = {
-            "name": "John Doe",
-            "age": 30,
-            "contact": {
-                "email": "john@example.com",
-                "phone": "123-456-7890"
+        const input: VerifyPayload = {
+            "data": {
+                "name": "John Doe",
+                "age": 30,
+                "contact": {
+                    "email": "john@example.com",
+                    "phone": "123-456-7890"
+                },
             },
-            "signature": "eyJhZ2UiOjMwLCJjb250YWN0Ijp7ImVtYWlsIjoiam9obkBleGFtcGxlLmNvbSIsInBob25lIjoiMTIzLTQ1Ni03ODkwIn0sIm5hbWUiOiJKb2huIERvZSJ9"
+            "signature": "ce921797127c3fbbc4725a297397b4c7e4268fcdd5cb1b85fa37d5b80306c896"
         };
         uc.execute(input).then((result) => {
             expect(result).toEqual(true);
@@ -25,14 +28,16 @@ describe('VerifyUseCase', () => {
 
     it('should verify all the payload same if order change', () => {
         const uc = new VerifyUseCase(crypter);
-        const input: JsonObject = {
-           "age": 30,
-            "name": "John Doe",
-            "contact": {
-                "phone": "123-456-7890",
-                "email": "john@example.com",
+        const input: VerifyPayload = {
+            "data": {
+                "age": 30,
+                "name": "John Doe",
+                "contact": {
+                    "phone": "123-456-7890",
+                    "email": "john@example.com",
+                },
             },
-            "signature": "eyJhZ2UiOjMwLCJjb250YWN0Ijp7ImVtYWlsIjoiam9obkBleGFtcGxlLmNvbSIsInBob25lIjoiMTIzLTQ1Ni03ODkwIn0sIm5hbWUiOiJKb2huIERvZSJ9"
+            "signature": "ce921797127c3fbbc4725a297397b4c7e4268fcdd5cb1b85fa37d5b80306c896"
         };
         uc.execute(input).then((result) => {
             expect(result).toEqual(true);
@@ -43,14 +48,16 @@ describe('VerifyUseCase', () => {
     it('should verify the payload same if it\'s change', () => {
         const uc = new VerifyUseCase(crypter);
 
-        const input: JsonObject = {
-            "age": 31,
-            "name": "John Doe",
-            "contact": {
-                "phone": "123-456-7890",
-                "email": "john@example.com",
+        const input: VerifyPayload = {
+            "data": {
+                "age": 31,
+                "name": "John Doe",
+                "contact": {
+                    "phone": "123-456-7890",
+                    "email": "john@example.com",
+                },
             },
-            "signature": "eyJhZ2UiOjMwLCJjb250YWN0Ijp7ImVtYWlsIjoiam9obkBleGFtcGxlLmNvbSIsInBob25lIjoiMTIzLTQ1Ni03ODkwIn0sIm5hbWUiOiJKb2huIERvZSJ9"
+            "signature": "ce921797127c3fbbc4725a297397b4c7e4268fcdd5cb1b85fa37d5b80306c896"
         };
         uc.execute(input).then((result) => {
             expect(result).toEqual(false);
@@ -61,16 +68,18 @@ describe('VerifyUseCase', () => {
     it('should verify all the deeply payload', () => {
         const uc = new VerifyUseCase(crypter);
 
-        const input: JsonObject = {
-            "user": {
-                "contact": {
-                    "name": {
-                        "firstname": "Bob",
-                        "lastname": "Hervé"
+        const input: VerifyPayload = {
+            "data":{
+                "user": {
+                    "contact": {
+                        "name": {
+                            "firstname": "Bob",
+                            "lastname": "Hervé"
+                        }
                     }
                 }
             },
-            "signature": "eyJ1c2VyIjp7ImNvbnRhY3QiOnsibmFtZSI6eyJmaXJzdG5hbWUiOiJCb2IiLCJsYXN0bmFtZSI6IkhlcnbDqSJ9fX19"
+            "signature": "81136eebfd28f41a943ab03e9fc91d4c03d794b7a281090613ab84fb71be72b3"
         };
         uc.execute(input).then((result) => {
             expect(result).toEqual(true);
@@ -80,16 +89,18 @@ describe('VerifyUseCase', () => {
 
     it('should verify all the deeply payload same if order change', () => {
         const uc = new VerifyUseCase(crypter);
-        const input: JsonObject = {
-            "user": {
-                "contact": {
-                    "name": {
-                        "firstname": "Bob",
-                        "lastname": "Hervé"
+        const input: VerifyPayload = {
+            "data":{
+                "user": {
+                    "contact": {
+                        "name": {
+                            "firstname": "Bob",
+                            "lastname": "Hervé"
+                        }
                     }
                 }
             },
-            "signature": "eyJ1c2VyIjp7ImNvbnRhY3QiOnsibmFtZSI6eyJmaXJzdG5hbWUiOiJCb2IiLCJsYXN0bmFtZSI6IkhlcnbDqSJ9fX19"
+            "signature": "81136eebfd28f41a943ab03e9fc91d4c03d794b7a281090613ab84fb71be72b3"
         };
         uc.execute(input).then((result) => {
             expect(result).toEqual(true);
@@ -100,16 +111,19 @@ describe('VerifyUseCase', () => {
     it('should verify the deeply payload same if it\'s change', () => {
         const uc = new VerifyUseCase(crypter);
 
-        const input: JsonObject = {
-            "user": {
-                "contact": {
-                    "name": {
-                        "firstname": "Bernard",
-                        "lastname": "Hervé"
+        const input: VerifyPayload = {
+            "data":{
+
+                "user": {
+                    "contact": {
+                        "name": {
+                            "firstname": "Bernard",
+                            "lastname": "Hervé"
+                        }
                     }
                 }
             },
-            "signature": "eyJ1c2VyIjp7ImNvbnRhY3QiOnsibmFtZSI6eyJmaXJzdG5hbWUiOiJCb2IiLCJsYXN0bmFtZSI6IkhlcnbDqSJ9fX19"
+            "signature": "81136eebfd28f41a943ab03e9fc91d4c03d794b7a281090613ab84fb71be72b3"
         };
         uc.execute(input).then((result) => {
             expect(result).toEqual(false);
@@ -117,73 +131,21 @@ describe('VerifyUseCase', () => {
 
     });
 
-    it('should throw error when signature is missing', () => {
-        const uc = new VerifyUseCase(crypter);
-
-        const input: JsonObject = {
-            "user": {
-                "contact": {
-                    "name": {
-                        "firstname": "Bernard",
-                        "lastname": "Hervé"
-                    }
-                }
-            },
-        };
-
-        expect(uc.execute(input)).rejects.toEqual(new DomainError('INVALID_PAYLOAD','Signature is required and must be a string'));
-    });
-
-    it('should throw error when signature is not a string', () => {
-        const uc = new VerifyUseCase(crypter);
-
-        const input: JsonObject = {
-            "user": {
-                "contact": {
-                    "name": {
-                        "firstname": "Bernard",
-                        "lastname": "Hervé"
-                    }
-                }
-            },
-            "signature": true
-        };
-
-        expect(uc.execute(input)).rejects.toEqual(new DomainError('INVALID_PAYLOAD','Signature is required and must be a string'));
-    });
-
     it('should throw error when signature is not encoded', () => {
         const uc = new VerifyUseCase(crypter);
 
-        const input: JsonObject = {
-            "user": {
-                "contact": {
-                    "name": {
-                        "firstname": "Bernard",
-                        "lastname": "Hervé"
-                    }
-                }
-            },
-            "signature": 'signature'
-        };
-
-        expect(uc.execute(input)).rejects.toEqual(new DomainError('INVALID_PAYLOAD','Signature is required and must be a string'));
-    });
-
-    it('should throw error when signature wrong place', () => {
-        const uc = new VerifyUseCase(crypter);
-
-        const input: JsonObject = {
-            "user": {
-                "contact": {
-                    "name": {
-                        "firstname": "Bernard",
-                        "lastname": "Hervé"
+        const input: VerifyPayload = {
+            "data":{
+                "user": {
+                    "contact": {
+                        "name": {
+                            "firstname": "Bernard",
+                            "lastname": "Hervé"
+                        }
                     }
                 },
-                "signature": 'signature'
             },
-
+            "signature": 'signature'
         };
 
         expect(uc.execute(input)).rejects.toEqual(new DomainError('INVALID_PAYLOAD','Signature is required and must be a string'));

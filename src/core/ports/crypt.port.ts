@@ -1,7 +1,6 @@
 
 export interface CryptPort {
-    encrypt(data: unknown): string;
+    encrypt(data: unknown): StringEncoded;
     decrypt(token: unknown): any;
-    isEncoded(token: string): boolean;
-    sign(object: unknown): string;
+    isEncoded(token: string): token is StringEncoded;
 }

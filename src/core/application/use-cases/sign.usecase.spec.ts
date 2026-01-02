@@ -1,8 +1,9 @@
 import { SignUseCase } from './sign.usecase';
 import { Base64Crypter } from '../../../adapters/crypter/base64.crypter';
+import {HmacCrypter} from "../../../adapters/crypter/hmac.crypter";
 
 describe('SignUseCase', () => {
-    const crypter = new Base64Crypter();
+    const crypter = new HmacCrypter();
 
     it('should sign all the payload', () => {
         const uc = new SignUseCase(crypter);
@@ -16,7 +17,7 @@ describe('SignUseCase', () => {
             }
         };
         uc.execute(input).then((result) => {
-            expect(result).toEqual({"signature": "eyJhZ2UiOjMwLCJjb250YWN0Ijp7ImVtYWlsIjoiam9obkBleGFtcGxlLmNvbSIsInBob25lIjoiMTIzLTQ1Ni03ODkwIn0sIm5hbWUiOiJKb2huIERvZSJ9"});
+            expect(result).toEqual({"signature": "ce921797127c3fbbc4725a297397b4c7e4268fcdd5cb1b85fa37d5b80306c896"});
         });
 
     });
@@ -61,7 +62,7 @@ describe('SignUseCase', () => {
             }
         };
         uc.execute(input).then((result) => {
-            expect(result).toEqual({"signature": "eyJ1c2VyIjp7ImNvbnRhY3QiOnsibmFtZSI6eyJmaXJzdG5hbWUiOiJCb2IiLCJsYXN0bmFtZSI6IkhlcnbDqSJ9fX19"});
+            expect(result).toEqual({"signature": "81136eebfd28f41a943ab03e9fc91d4c03d794b7a281090613ab84fb71be72b3"});
         });
 
     });

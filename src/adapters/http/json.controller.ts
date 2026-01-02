@@ -1,9 +1,11 @@
-import {BadRequestException, Body, Controller, Get, HttpCode, Post} from '@nestjs/common';
+import {BadRequestException, Body, Controller, Get, HttpCode, Post, UseGuards} from '@nestjs/common';
 import {EncryptUseCase} from '../../core/application/use-cases/encrypt.usecase';
 import {DecryptUseCase} from "../../core/application/use-cases/decrypt.usecase";
 import {SignUseCase} from "../../core/application/use-cases/sign.usecase";
 import {VerifyUseCase} from "../../core/application/use-cases/verify.usecase";
+import {JwtAuthGuard} from "./auth/jwt-auth.guard";
 
+@UseGuards(JwtAuthGuard)
 @Controller('json')
 export class JsonController {
     constructor(

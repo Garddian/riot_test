@@ -10,12 +10,13 @@ import { SignUseCase } from "./core/application/use-cases/sign.usecase";
 import { Base64Crypter } from "./adapters/crypter/base64.crypter";
 import { CryptPort } from "./core/ports/crypt.port";
 import {VerifyUseCase} from "./core/application/use-cases/verify.usecase";
+import {AuthModule} from "./adapters/http/auth/auth.module";
 
 
 @Module({
     imports: [
         ConfigModule.forRoot({ isGlobal: true }),
-
+        AuthModule,
     ],
     controllers: [JsonController],
     providers: [

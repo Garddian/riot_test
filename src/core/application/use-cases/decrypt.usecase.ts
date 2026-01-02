@@ -1,4 +1,5 @@
 import { CryptPort } from '../../ports/crypt.port';
+import {JsonObject} from "../../domain/TypeJsonObject";
 
 export class DecryptUseCase {
     constructor(
@@ -6,7 +7,6 @@ export class DecryptUseCase {
     ) {}
 
     async execute(data: JsonObject) {
-        // TODO faire filtre pour les paramettre qui ne sont pas encodé
         let data_decrypted : JsonObject = {};
         for (let key in data) {
             if(typeof data[key] === 'string' && this.crypt.isEncoded(String(data[key]))) {

@@ -1,5 +1,6 @@
 import { DecryptUseCase } from './decrypt.usecase';
 import { Base64Crypter } from '../../../adapters/crypter/base64.crypter';
+import {JsonObject} from "../../domain/TypeJsonObject";
 
 describe('DecryptUseCase', () => {
     const crypter = new Base64Crypter();

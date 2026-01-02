@@ -1,4 +1,5 @@
 import { CryptPort } from '../../ports/crypt.port';
+import {JsonObject} from "../../domain/TypeJsonObject";
 
 export class SignUseCase {
     constructor(
